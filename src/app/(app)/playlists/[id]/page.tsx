@@ -1,11 +1,12 @@
 import PlaylistDetailPage from "@/components/PlaylistDetailPage";
 
 type PlaylistPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default function PlaylistPage({ params }: PlaylistPageProps) {
-  return <PlaylistDetailPage playlistId={params.id} />;
+export default async function PlaylistPage({ params }: PlaylistPageProps) {
+  const { id } = await params;
+  return <PlaylistDetailPage playlistId={id} />;
 }

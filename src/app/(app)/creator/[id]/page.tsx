@@ -1,11 +1,12 @@
 import CreatorProfilePage from "@/components/CreatorProfilePage";
 
 type CreatorPageProps = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default function CreatorPage({ params }: CreatorPageProps) {
-  return <CreatorProfilePage creatorId={params.id} />;
+export default async function CreatorPage({ params }: CreatorPageProps) {
+  const { id } = await params;
+  return <CreatorProfilePage creatorId={id} />;
 }
