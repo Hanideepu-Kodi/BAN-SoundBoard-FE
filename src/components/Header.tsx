@@ -1,23 +1,35 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { Search } from "lucide-react";
 
-export default function Header() {
+type HeaderProps = {
+  searchQuery?: string;
+  onSearchChange?: (value: string) => void;
+  onSearchSubmit?: (value: string) => void;
+};
+
+export default function Header({ searchQuery, onSearchChange, onSearchSubmit }: HeaderProps) {
   const { user, loading, signInWithGoogle } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const [internalQuery, setInternalQuery] = useState(searchParams.get("q") ?? "");
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const controlled = typeof onSearchChange === "function";
+  const query = controlled ? searchQuery ?? "" : internalQuery;
 
   useEffect(() => {
-    setQuery(searchParams.get("q") ?? "");
-  }, [searchParams]);
+    if (controlled) {
+      return;
+    }
+    setInternalQuery(searchParams.get("q") ?? "");
+  }, [controlled, searchParams]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
@@ -43,7 +55,11 @@ export default function Header() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const next = query.trim();
-    const target = `/explore${next ? `?q=${encodeURIComponent(next)}` : ""}`;
+    if (onSearchSubmit) {
+      onSearchSubmit(next);
+      return;
+    }
+    const target = `/explore${next ? `?q=${encodeURIComponent(next)}` : ""}` as Route;
     if (pathname === "/explore") {
       router.push(target);
       return;
@@ -78,7 +94,15 @@ export default function Header() {
                 ref={inputRef}
                 type="text"
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                suppressHydrationWarning
+                onChange={(event) => {
+                  const value = event.target.value;
+                  if (controlled) {
+                    onSearchChange?.(value);
+                  } else {
+                    setInternalQuery(value);
+                  }
+                }}
                 placeholder="Search sounds, tags, creators"
                 className="w-full rounded-full border border-white/10 bg-white/5 py-2 pl-11 pr-4 text-sm text-white placeholder:text-fg-muted focus-ring focus-visible:outline-none"
               />
@@ -95,7 +119,15 @@ export default function Header() {
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            suppressHydrationWarning
+            onChange={(event) => {
+              const value = event.target.value;
+              if (controlled) {
+                onSearchChange?.(value);
+              } else {
+                setInternalQuery(value);
+              }
+            }}
             placeholder="Search sounds, tags, creators"
             className="w-full rounded-full border border-white/10 bg-white/5 py-2 pl-11 pr-4 text-sm text-white placeholder:text-fg-muted focus-ring focus-visible:outline-none"
           />

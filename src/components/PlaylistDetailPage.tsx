@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { Route } from "next";
 import Link from "next/link";
 import type { Playlist, Sound } from "@/lib/types";
 import { apiFetch } from "@/lib/api-client";
@@ -159,7 +160,10 @@ export default function PlaylistDetailPage({ playlistId }: PlaylistDetailPagePro
               {playlist.privacy.replace("_", "-")}
             </span>
             {playlist.creator?.id ? (
-              <Link href={`/creator/${playlist.creator.id}`} className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+              <Link
+                href={`/creator/${playlist.creator.id}` as Route}
+                className="rounded-full border border-white/10 bg-white/5 px-2 py-1"
+              >
                 {playlist.creator.display_name || playlist.creator.handle || "Creator"}
               </Link>
             ) : null}

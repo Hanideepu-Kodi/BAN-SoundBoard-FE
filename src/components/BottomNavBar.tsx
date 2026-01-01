@@ -1,15 +1,16 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Compass, Home, Library, Plus, User2 } from "lucide-react";
+import { Compass, Home, Library, Plus, User2, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type BottomNavBarProps = {
   onCreate: () => void;
 };
 
-const navItems = [
+const navItems: ReadonlyArray<{ label: string; href: Route; icon: LucideIcon }> = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore", href: "/explore", icon: Compass },
   { label: "Playlists", href: "/playlists", icon: Library },
@@ -19,7 +20,7 @@ const navItems = [
 export default function BottomNavBar({ onCreate }: BottomNavBarProps) {
   const pathname = usePathname();
 
-  const isActive = (href: string) => {
+  const isActive = (href: Route) => {
     if (href === "/") {
       return pathname === "/";
     }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { Route } from "next";
 import type { Creator, Playlist, Sound } from "@/lib/types";
 import { apiFetch } from "@/lib/api-client";
 import { useAuth } from "@/components/AuthProvider";
@@ -228,7 +229,7 @@ export default function CreatorProfilePage({ creatorId }: CreatorProfilePageProp
               <PlaylistCard
                 key={playlist.id}
                 playlist={playlist}
-                href={`/playlists/${playlist.id}`}
+                href={`/playlists/${playlist.id}` as Route}
                 actions={
                   !isAuthed ? (
                     <button

@@ -9,15 +9,13 @@ type ApiFetchOptions = RequestInit & {
 export async function apiFetch(path: string, options: ApiFetchOptions = {}) {
   const { skipAuth, headers, ...rest } = options;
   const session = skipAuth ? null : (await supabase.auth.getSession()).data.session;
-  const authHeader = session?.access_token
-    ? { Authorization: `Bearer ${session.access_token}` }
-    : {};
+  const requestHeaders = new Headers(headers);
+  if (session?.access_token) {
+    requestHeaders.set("Authorization", `Bearer ${session.access_token}`);
+  }
 
   return fetch(`${baseUrl}${path}`, {
     ...rest,
-    headers: {
-      ...authHeader,
-      ...(headers ?? {}),
-    },
+    headers: requestHeaders,
   });
 }

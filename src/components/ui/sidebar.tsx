@@ -1,14 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
+import type { Route } from "next";
+import Link, { type LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 interface Links {
   label: string;
-  href: string;
+  href: Route;
   icon: React.JSX.Element | React.ReactNode;
 }
 
@@ -161,7 +162,7 @@ export const SidebarLink = ({
 }: {
   link: Links;
   className?: string;
-} & LinkProps) => {
+} & Omit<LinkProps<Route>, "href">) => {
   const { open, animate } = useSidebar();
   return (
     <Link

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { Route } from "next";
 import Link from "next/link";
 import { ListPlus, MoreHorizontal, Share2 } from "lucide-react";
 import type { Playlist, Sound } from "@/lib/types";
@@ -45,7 +46,7 @@ export default function SoundCard({
     (sound.owner_id ? `Creator ${sound.owner_id.slice(0, 6)}` : "Creator");
 
   const creatorId = sound.creator?.id ?? sound.owner_id ?? null;
-  const creatorHref = creatorId ? `/creator/${creatorId}` : "#";
+  const creatorRoute = creatorId ? (`/creator/${creatorId}` as Route) : null;
 
   const tags = useMemo(() => sound.tags.slice(0, 3), [sound.tags]);
 
@@ -66,9 +67,9 @@ export default function SoundCard({
       <div className="flex items-start justify-between gap-3">
         <div className="space-y-1">
           <p className="text-base font-semibold text-white">{sound.name}</p>
-          {creatorId ? (
+          {creatorRoute ? (
             <Link
-              href={creatorHref}
+              href={creatorRoute}
               onClick={(event) => event.stopPropagation()}
               className="text-xs text-fg-muted hover:text-brand-primary"
             >
@@ -178,9 +179,9 @@ export default function SoundCard({
               <Share2 className="h-4 w-4" />
               Share
             </button>
-            {creatorId ? (
+            {creatorRoute ? (
               <Link
-                href={`/creator/${creatorId}`}
+                href={creatorRoute}
                 onClick={(event) => event.stopPropagation()}
                 className="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs text-fg-muted"
               >

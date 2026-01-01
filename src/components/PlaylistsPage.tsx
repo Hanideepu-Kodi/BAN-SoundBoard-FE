@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import type { Route } from "next";
 import { useAuth } from "@/components/AuthProvider";
 import { apiFetch } from "@/lib/api-client";
 import type { Playlist } from "@/lib/types";
@@ -161,7 +162,7 @@ export default function PlaylistsPage() {
             <PlaylistCard
               key={playlist.id}
               playlist={playlist}
-              href={`/playlists/${playlist.id}`}
+              href={`/playlists/${playlist.id}` as Route}
               showCreator={false}
               actions={
                 <select

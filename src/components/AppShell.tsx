@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Compass, Library, Bookmark, User2, Plus, LogIn, LogOut } from "lucide-react";
+import { Home, Compass, Library, Bookmark, User2, Plus, LogIn, LogOut, type LucideIcon } from "lucide-react";
 import Header from "@/components/Header";
 import UploadModal from "@/components/UploadModal";
 import ConfirmModal from "@/components/ConfirmModal";
@@ -12,7 +13,7 @@ import { Sidebar, SidebarBody, SidebarLink } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/AuthProvider";
 
-const navLinks = [
+const navLinks: ReadonlyArray<{ label: string; href: Route; icon: LucideIcon }> = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore", href: "/explore", icon: Compass },
   { label: "My Sounds", href: "/my-sounds", icon: User2 },
@@ -98,6 +99,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               <button
                 onClick={() => setUploadOpen(true)}
                 aria-label="Create"
+                suppressHydrationWarning
                 className={cn(
                   "flex items-center justify-center rounded-full bg-gradient-to-r from-brand-primary via-brand-accent to-brand-warm text-sm font-semibold text-bg-base shadow-glow transition hover:-translate-y-0.5",
                   sidebarOpen ? "w-full gap-2 px-4 py-2" : "h-11 w-11 self-center"
@@ -143,7 +145,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         </Sidebar>
 
         <div className="flex min-h-screen flex-1 flex-col">
-          <Header />
+          <Suspense fallback={null}>
+            <Header />
+          </Suspense>
           <div className="flex-1 px-6 pb-28 pt-8 md:pb-8">{children}</div>
         </div>
       </div>

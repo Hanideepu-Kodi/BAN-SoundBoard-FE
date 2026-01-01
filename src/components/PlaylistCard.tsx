@@ -1,11 +1,12 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import type { Playlist } from "@/lib/types";
 
 type PlaylistCardProps = {
   playlist: Playlist;
-  href: string;
+  href: Route;
   actions?: React.ReactNode;
   showCreator?: boolean;
 };

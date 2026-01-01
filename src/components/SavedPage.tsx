@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Route } from "next";
 import type { Playlist } from "@/lib/types";
 import { apiFetch } from "@/lib/api-client";
 import PlaylistCard from "@/components/PlaylistCard";
@@ -64,7 +65,7 @@ export default function SavedPage() {
             <PlaylistCard
               key={playlist.id}
               playlist={playlist}
-              href={`/playlists/${playlist.id}`}
+              href={`/playlists/${playlist.id}` as Route}
               actions={
                 <button
                   onClick={() => remove(playlist.id)}
