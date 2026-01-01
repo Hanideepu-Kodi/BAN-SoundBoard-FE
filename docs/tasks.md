@@ -1,0 +1,50 @@
+# Kodi-board Redesign Task Tracker
+
+I will append "- completed" as items are finished.
+
+- Create vision, experience, design system, and content guides - completed
+- Define Tailwind tokens (colors, typography stack, radii, shadows, motion easings) and global styles (fonts, noise overlay, gradient base) in the codebase - completed
+- Implement shared layout chrome (header/nav, footer, grid system, container widths, responsive breakpoints, focus states) - completed
+- Build hero/landing page: animated background ribbon, stat pills, CTA duo, featured playlist spotlight, trending carousel, testimonial/creator spotlight, trust indicators - completed
+- Build global player dock with multi-play chips, stop-all, volume per sound, crossfade control, keyboard shortcut legend, and reduced-motion fallback - completed
+- Build sound/playlist cards with waveform stub, privacy badges, quick actions (play/add/share), hover/press interactions, skeleton loaders, empty states - completed
+- Build dashboard page: playlist overview grid, recent activity feed, quick actions, drag-to-reorder skeleton, privacy toggles, share modal scaffolding - completed
+- Build upload flow: drag-and-drop zone, validation checklist (length/format/levels), waveform preview placeholder, tag inputs, privacy defaults, progress/toast feedback - completed
+- Build discover/search page section: search-as-you-type bar, tag filters, trending filters, infinite grid pagination hooks, inline preview - completed
+- Set up local data layer (SQLite + file storage for uploads) - completed
+- Build API routes for playlists, sounds, and playlist-sound links - completed
+- Wire API hooks/services to new UI surfaces (playlists, sounds, uploads) with optimistic states and error toasts - completed
+- Add motion/interaction layer: staggered reveals, magnetic CTAs, hover lifts, focus glows; add reduced-motion handling - completed
+- Add content/copy per guide (headlines, microcopy for tooltips, empty states, toasts) - completed
+- Add auth (Google OAuth) and user-scoped data - completed
+- Add playlist sound management (remove, reorder, multi-play) - completed
+- QA pass: responsive tuning (mobile/tablet/desktop), accessibility (focus rings, contrast), keyboard flows, and performance checks - completed (lint + basic checks)
+- Build FastAPI backend (auth, playlists, sounds, uploads, playlist sounds) - completed
+- Migrate Next.js API usage to FastAPI endpoints - completed
+- Add Supabase SQL schema + RLS policies in `backend/sql` - completed
+- Document Supabase setup and add `.env.example` - completed
+- Harden auth/storage config for Supabase publishable key and clearer upload errors - completed
+- Polish UI pass: replace hero mock stats/featured board with live data or true empty states - completed
+- Polish UI pass: functional share flow + public share page - completed
+- Polish UI pass: wire header search + discover filters to live data - completed
+- Polish UI pass: upgrade upload validation UI with real file checks - completed
+- Polish UI pass: implement keyboard shortcuts or remove non-functional hints - completed
+- Polish UI pass: update CTA copy to reflect the real product state - completed
+- YouTube-style UI: replace home with a sound-card feed (play on click, creator row) - completed
+- YouTube-style UI: add three-dot card menu (save to playlist, share, view creator) - completed
+- YouTube-style UI: sidebar navigation (Home, Explore, My Sounds, Playlists, Saved, Create) - completed
+- YouTube-style UI: install shadcn/aceternity sidebar component and integrate into app shell - completed
+- YouTube-style UI: Create button opens upload modal - completed
+- YouTube-style UI: creator profile page (plays count, sounds, playlists) - completed
+- YouTube-style UI: playlist page (sounds playable, save playlist) - completed
+- YouTube-style UI: My Sounds management (edit name/tags/privacy, delete) - completed
+- YouTube-style UI: update copy to match new navigation and actions - completed
+- YouTube-style UI: split each surface into separate routes (Home, Explore, Creator, Playlist, Saved, My Sounds) - completed
+- YouTube-style UI: remove global player dock and keep multi-play on click - completed
+- UI polish: delay sidebar labels until fully expanded and ensure sidebar fills viewport - completed
+- UI polish: remove explore sort control; force 100% playback volume - completed
+- Mobile UI: replace hamburger sidebar with bottom nav bar and topbar logo/search pattern - completed
+- Mobile UI: add search icon toggle and centered search on desktop - completed
+- Mobile UI: add themed dropdown styling across selectors - completed
+- Mobile UI: bottom nav order set to Home, Explore, Create, Playlists, Profile - completed
+- Mobile UI: add sign-out confirmation modal and mobile-only sign-out action in Profile - completed
